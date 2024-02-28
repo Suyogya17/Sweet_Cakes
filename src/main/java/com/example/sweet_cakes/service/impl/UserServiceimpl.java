@@ -19,13 +19,7 @@ public class UserServiceimpl implements UserService {
     private final UserRepository userRepository;
     @Override
     public String save(UserDto userDto) {
-
         User user = new User();
-
-        if(userDto.getId()!=null) {
-            user=userRepository.findById((userDto.getId())).orElseThrow(() ->new NullPointerException("data not found"));
-        }
-
         user.setEmail(userDto.getEmail());
         user.setFullName(userDto.getFullName());
         user.setMobileNo(userDto.getMobileNo());
@@ -33,8 +27,7 @@ public class UserServiceimpl implements UserService {
 
         userRepository.save(user);
 
-
-        return "created";
+        return "User successfully saved";
     }
 
     @Override

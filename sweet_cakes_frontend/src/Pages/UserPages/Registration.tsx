@@ -1,147 +1,117 @@
-// import { useState } from 'react';
-// import axios from 'axios';
-// import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import './Registration.css';
-// import { useMutation } from 'react-query';
-// import { useNavigate } from "react-router-dom";
-//
-// function Registration() {
-//     const navigate = useNavigate();
-//     const saveData = useMutation({
-//         mutationFn: (requestData: any) => {
-//             return axios.post('http://localhost:8088/users/register', {data: requestData});
-//         },
-//         mutationKey: 'SAVED',
-//         onError: (error) => {
-//             console.error('Error registering user:', error.message || error.response?.data);
-//             toast.error(`Error registering user: ${(error.message || error.response?.data)}`);
-//         },
-//         onSuccess: (data) => {
-//             console.log('User registered successfully:', data);
-//             toast.success('User registered successfully');
-//             navigate('/sign-in');
-//
-//
-//         },
-//     });
-//
-//     const [firstName, setFirstName] = useState('');
-//     const [lastName, setLastName] = useState('');
-//     const [userName, username] = useState('');
-//     const [email, setEmail] = useState('');
-//     const [phoneNumber, setPhoneNumber] = useState('');
-//     const [password, setPassword] = useState('');
-//     const [confirmPassword, setConfirmPassword] = useState('');
-//
-//     const handleRegister = () => {
-//         // Basic password validation
-//         if (password !== confirmPassword) {
-//             toast.error('Password and confirm password do not match');
-//             return;
-//         }
-//
-//         // Use the mutate function from useMutation to initiate the mutation
-//         saveData.mutate({
-//             firstName,
-//             lastName,
-//             userName,
-//             email,
-//             phoneNumber,
-//             password,
-//         });
-//     };
-//
-//     return (
-//         <div className='maindiv'>
-//             <h1 className='header1registration'> Welcome To Seven Steps</h1>
-//             <h2 className='headerregistration'> --- Your Details --- </h2>
-//             <form className='registrationform' onSubmit={(e) => {
-//                 e.preventDefault(); // Prevents the default form submission behavior
-//                 handleRegister();    // Calls your registration function
-//             }}>
-//                 <input
-//                     className='registrationinput'
-//                     type="text"
-//                     placeholder='First Name'
-//                     required
-//                     value={firstName}
-//                     onChange={(e) => setFirstName(e.target.value)}
-//                 />
-//                 <br/>
-//
-//                 <input
-//                     className='registrationinput'
-//                     placeholder='Last Name'
-//                     required
-//                     type="text"
-//                     value={lastName}
-//                     onChange={(e) => setLastName(e.target.value)}
-//                 />
-//                 <br/>
-//
-//                 <input
-//                     className='registrationinput'
-//                     placeholder='Username'
-//                     required
-//                     type="text"
-//                     value={userName}
-//                     onChange={(e) => username(e.target.value)}
-//                 />
-//                 <br/>
-//                 <input
-//                     className='registrationinput'
-//                     type="email"
-//                     placeholder='Email'
-//                     required
-//                     value={email}
-//                     onChange={(e) => setEmail(e.target.value)}
-//                 />
-//                 <br/>
-//                 <input
-//                     className='registrationinput'
-//                     type="tel"
-//                     placeholder='Phone Number'
-//                     required
-//                     value={phoneNumber}
-//                     onChange={(e) => setPhoneNumber(e.target.value)}
-//                 />
-//                 <br/>
-//
-//                 <input
-//                     className='registrationinput'
-//                     type="password"
-//                     placeholder='Password'
-//                     required
-//                     value={password}
-//                     onChange={(e) => setPassword(e.target.value)}
-//                 />
-//                 <br/>
-//
-//                 <input
-//                     className='registrationinput'
-//                     type="password"
-//                     placeholder='Confirm Password'
-//                     required
-//                     value={confirmPassword}
-//                     onChange={(e) => setConfirmPassword(e.target.value)}
-//                 />
-//                 <br/>
-//                 <button className='buttons' type="submit" onClick={handleRegister}>
-//                     Register
-//                 </button>
-//
-//             </form>
-//             <br/>
-//             <label className='registrationlabel'>Already have an account?
-//                 <br/>
-//                 <a href='/sign-in' className='ancher'> Sign-In </a> </label>
-//             <br/>
-//             <a href='#' className='ancher2'> Forget Password</a>
-//
-//         </div>
-//
-//     );
-// }
-//
-// export default Registration
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './Registration.css';
+
+function Registration() {
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        fullName: '',
+        email: '',
+        mobileNo: '',
+        password: '',
+        confirmPassword: '',
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (formData.password !== formData.confirmPassword) {
+            toast.error("Passwords don't match");
+            return;
+        }
+
+        try {
+            await axios.get('http://localhost:8080/user/data');
+            toast.success('Registration successful!');
+            navigate('/sign-in');
+
+        } catch (error) {
+            console.error('Registration failed:', error);
+            toast.error('Registration failed. Please try again.');
+        }
+    };
+
+    return (
+        <>
+            <div className='maindiv'>
+                <h1 className='header1registration'>Welcome To Seven Steps</h1>
+                <h2 className='headerregistration'> --- Your Details --- </h2>
+                <form className='registrationform' onSubmit={handleSubmit}>
+                    <input
+                        className='registrationinput'
+                        placeholder='Full Name'
+                        type="text"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        required
+                    />
+                    <br/>
+
+                    <input
+                        className='registrationinput'
+                        placeholder='Email'
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                    />
+                    <br/>
+
+                    <input
+                        className='registrationinput'
+                        placeholder='Mobile Number'
+                        type="text"
+                        name="mobileNo"
+                        value={formData.mobileNo}
+                        onChange={handleInputChange}
+                        required
+                    />
+                    <br/>
+
+                    <input
+                        className='registrationinput'
+                        placeholder='Password'
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        required
+                    />
+                    <br/>
+
+                    <input
+                        className='registrationinput'
+                        placeholder='Confirm Password'
+                        type="password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                        required
+                    />
+                    <br/>
+
+                    <button className='buttons' type="submit" >Register</button>
+                </form>
+                <br/>
+                <label className='registrationlabel'>Already have an account?
+                    <br/>
+                    <a href='/sign-in' className='ancher'> Sign-In </a> </label>
+                <br/>
+                <a href='#' className='ancher2'> Forget Password</a>
+
+            </div>
+        </>
+    );
+}
+
+export default Registration

@@ -37,7 +37,7 @@
 
 /* Responsive styles */
 @media only screen and (max-width: 600px) {
-    .loginForm {
+    .loginpage {
         width: 80%; /* Adjust width for smaller screens */
     }
 }

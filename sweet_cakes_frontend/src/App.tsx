@@ -1,9 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
 import Registration from './Pages/UserPages/Registration.tsx';
-import Login from './Pages/UserPages/Login.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
+import Login from './Pages/UserPages/Login.tsx'
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -13,7 +12,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/sign-in",
-        element: <Login />,
+        element: <Login/>,
     },
 ]);
 
