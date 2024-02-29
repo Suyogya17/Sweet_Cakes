@@ -29,16 +29,22 @@ function Registration() {
         }
 
         try {
-            await axios.get('http://localhost:8080/user/data');
+            // Assuming your server sends a response with a status code upon successful registration
+            await axios.post('http://localhost:8080/user/save', {
+                fullName: formData.fullName,
+                email: formData.email,
+                mobileNo: formData.mobileNo,
+                password: formData.password,
+            });
+
             toast.success('Registration successful!');
-            navigate('/sign-in');
+            navigate('/sign-in'); // Redirect to the login page after successful registration
 
         } catch (error) {
             console.error('Registration failed:', error);
             toast.error('Registration failed. Please try again.');
         }
     };
-
     return (
         <>
             <div className='maindiv'>

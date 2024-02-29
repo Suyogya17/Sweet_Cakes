@@ -17,6 +17,9 @@ public class ItemDto {
     private String itemName;
 
     @NotNull
+    private byte[] image;
+
+    @NotNull
     private String price;
 
     @NotNull

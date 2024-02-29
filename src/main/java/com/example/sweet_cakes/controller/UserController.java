@@ -24,8 +24,13 @@ public class UserController {
 
     @PostMapping("/save")
     public String createData(@RequestBody UserDto userDto) {
-        userService.save(userDto);
-        return "created data";
+        try {
+            userService.save(userDto);
+            return "created data";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error creating data: " + e.getMessage();
+        }
     }
 
     @GetMapping("/getAll")

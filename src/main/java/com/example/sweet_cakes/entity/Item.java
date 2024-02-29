@@ -1,11 +1,5 @@
 package com.example.sweet_cakes.entity;
 
-//name
-//image ("url")
-//price
-//quantity
-//description
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +12,6 @@ import lombok.*;
 @Table(name = "items", uniqueConstraints = {
         @UniqueConstraint(name = "UNIQUE_item_name", columnNames = "itemName")
 })
-
 public class Item {
 
     @Id
@@ -29,8 +22,8 @@ public class Item {
     @Column(name = "itemName", nullable = false)
     private String itemName;
 
-//    @Column(name = "images")
-//    private String image;
+    @Column(name = "images", nullable = false, columnDefinition = "bytea")
+    private byte[] image;
 
     @Column(name = "price", nullable = false)
     private String price;
@@ -41,4 +34,3 @@ public class Item {
     @Column(name = "description", nullable = false)
     private String description;
 }
-
