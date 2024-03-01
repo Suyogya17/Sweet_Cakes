@@ -6,6 +6,7 @@ import com.example.sweet_cakes.repository.ItemRepository;
 import com.example.sweet_cakes.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,7 @@ public class ItemServiceImpl implements ItemService {
 
         item.setItemName(itemDto.getItemName());
         item.setPrice(itemDto.getPrice());
+        item.setImageUrl(itemDto.getImageUrl());
         item.setQuantity(itemDto.getQuantity());
         item.setDescription(itemDto.getDescription());
 

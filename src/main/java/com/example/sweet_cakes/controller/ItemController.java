@@ -3,11 +3,9 @@ package com.example.sweet_cakes.controller;
 import com.example.sweet_cakes.dto.ItemDto;
 import com.example.sweet_cakes.entity.Item;
 import com.example.sweet_cakes.service.ItemService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +16,6 @@ import java.util.Optional;
 public class ItemController {
 
     private final ItemService itemService;
-    private final ObjectMapper objectMapper;
 
     @GetMapping("/data")
     public String getData() {
@@ -27,16 +24,23 @@ public class ItemController {
 
     @PostMapping("/save")
     public ResponseEntity<String> createData(
-            @RequestParam("file") MultipartFile file,
-            @RequestPart("itemDto") ItemDto itemDto
-    ) {
+            @RequestPart("itemName") String itemName,
+            @RequestPart("description") String description,
+            @RequestPart("price") String price,
+            @RequestPart("quantity") String quantity,
+            @RequestPart("imageUrl") String imageUrl) {
+
         try {
+            ItemDto itemDto = new ItemDto(null, itemName, imageUrl, price, quantity, description);
+            itemService.save(itemDto);
             return ResponseEntity.ok("created data");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Error creating data");
         }
     }
+
+
 
     @GetMapping("/getAll")
     public List<Item> getAllData() {

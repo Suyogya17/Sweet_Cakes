@@ -1,9 +1,10 @@
 package com.example.sweet_cakes.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
+
 
 @Data
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class ItemDto {
     private String itemName;
 
     @NotNull
-    private byte[] image;
+    private String imageUrl;
 
     @NotNull
     private String price;

@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import './AddProduct.css';
 
 function AddProduct() {
-    const [{description, image, itemName, price, quantity}, setItem] = useState({
+    const [{description, imageUrl, itemName, price, quantity}, setItem] = useState({
         itemName: '',
-        image: ' ',
+        imageUrl: ' ',
         description: '',
         price: '',
         quantity: '',
     });
 
     const navigate = useNavigate();
-
+// @ts-ignore
     const handleInputChange = (e) => {
         const { name, value, type, files } = e.target;
 
@@ -34,7 +34,7 @@ function AddProduct() {
             formData.append('description', description);
             formData.append('price', price);
             formData.append('quantity', quantity);
-            formData.append('image', image);
+            formData.append('imageUrl', imageUrl);  // Append imageUrl as a string
 
             const response = await axios.post('http://localhost:8080/Item/save', formData, {
                 headers: {
@@ -50,6 +50,7 @@ function AddProduct() {
             toast.error('Error adding product. Please try again!');
         }
     };
+
 
     return (
         <>
@@ -67,8 +68,8 @@ function AddProduct() {
                 <label className="addlabel">Image:</label>
                 <input
                     className="addinput"
-                    type="file"
-                    name="image"
+                    type="text"
+                    name="imageUrl"
                     onChange={handleInputChange}
                 />
 

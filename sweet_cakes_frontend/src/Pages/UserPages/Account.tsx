@@ -11,7 +11,7 @@ function Account() {
 
             <div className="Accounttypes">
                 <button className="Accbuttons">
-                    <a href="/admin-log-in" className="connect">Add Product</a>
+                    <a href="/add-product" className="connect">Add Product</a>
                 </button>
 
                 <button className="Accbuttons">

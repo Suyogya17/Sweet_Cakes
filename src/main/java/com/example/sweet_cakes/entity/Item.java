@@ -22,8 +22,8 @@ public class Item {
     @Column(name = "itemName", nullable = false)
     private String itemName;
 
-    @Column(name = "images", nullable = false, columnDefinition = "bytea")
-    private byte[] image;
+    @Column(name = "images", nullable = false)
+    private String imageUrl;
 
     @Column(name = "price", nullable = false)
     private String price;

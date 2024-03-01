@@ -2,6 +2,7 @@ package com.example.sweet_cakes.service;
 
 import com.example.sweet_cakes.dto.ItemDto;
 import com.example.sweet_cakes.entity.Item;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
