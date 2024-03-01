@@ -6,6 +6,10 @@ import Login from './Pages/UserPages/Login.tsx'
 import Dashboard from "./Pages/UserPages/Dashboard.tsx";
 import Account from "./Pages/UserPages/Account.tsx";
 import AddProduct from "./Pages/UserPages/AddProduct.tsx";
+import Location from "./Pages/UserPages/Location.tsx";
+import MyProducts from "./Pages/UserPages/MyProducts.tsx";
+import EditProduct from "./Pages/UserPages/EditProduct.tsx";
+
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -29,6 +33,18 @@ const router = createBrowserRouter([
     {
         path: "/account",
         element: <Account/>,
+    },
+    {
+        path: "/location",
+        element: <Location/>,
+    },
+    {
+        path: "/my-products",
+        element: <MyProducts/>,
+    },
+    {
+        path: "/edit-products",
+        element: <EditProduct/>
     },
 ]);
 

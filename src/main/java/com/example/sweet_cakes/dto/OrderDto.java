@@ -1,9 +1,9 @@
 package com.example.sweet_cakes.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +12,18 @@ public class OrderDto {
 
     private Integer id;
 
+    @jakarta.validation.constraints.NotNull
+    private String orderName;
+
+    @jakarta.validation.constraints.NotNull
+    private String imageUrl;
+
+    @jakarta.validation.constraints.NotNull
+    private String price;
+
+    @jakarta.validation.constraints.NotNull
+    private String quantity;
 
     @NotNull
-    private String orderDetail;
+    private String description;
 }

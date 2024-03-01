@@ -23,7 +23,7 @@ public class OrderController {
         return ResponseEntity.ok("Data retrieved");
     }
 
-    @PostMapping("/create")
+    @PostMapping("/save")
     public ResponseEntity<String> createOrder(@RequestBody OrderDto orderDto) {
         // Your logic to create the order
         System.out.println(orderDto);

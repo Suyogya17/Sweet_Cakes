@@ -25,10 +25,10 @@ function Navbar (){
     return (
         <div className="App">
             <div className="navbar">
-                <div className="navbar-logo">Sweet Cakes</div>
+                <div className="navbar-logo"><a className='anchername' href='/dashboard'> Sweet Cakes </a></div>
                 <div className={`navbar-links ${showMobileMenu ? 'show' : ''}`}>
-                    <a href="/">Home</a>
-                    <a href="/about">Cart</a>
+                    <a href="/dashboard">Home</a>
+                    <a href="/location">Location</a>
                     <a href="/Account">Account</a>
 
                 </div>

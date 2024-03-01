@@ -6,7 +6,6 @@ import com.example.sweet_cakes.repository.ItemRepository;
 import com.example.sweet_cakes.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +35,14 @@ public class ItemServiceImpl implements ItemService {
         return "created";
     }
 
+
+    @Override
+    public Optional<Item> getByName(String itemName) {
+
+        return itemRepository.findByItemName(itemName);
+    }
+
+
     @Override
     public List<Item> getAll() {
         return itemRepository.findAll();
@@ -49,5 +56,27 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteById(Integer id) {
         itemRepository.deleteById(id);
+    }
+
+    @Override
+    public void update(ItemDto updatedItemDTO) {
+
+        Optional<Item> existingItemOptional = itemRepository.findByItemName(updatedItemDTO.getItemName());
+
+        if (existingItemOptional.isPresent()) {
+            Item existingItem = existingItemOptional.get();
+
+            // Update the existing item with new information
+            existingItem.setPrice(updatedItemDTO.getPrice());;
+            existingItem.setDescription(updatedItemDTO.getDescription());
+            existingItem.setImageUrl(updatedItemDTO.getImageUrl());
+            existingItem.setQuantity(updatedItemDTO.getQuantity());
+
+            // Save the updated item
+            itemRepository.save(existingItem);
+        } else {
+            // Handle the case where the item to update is not found
+            throw new RuntimeException("Item not found for update");
+        }
     }
 }

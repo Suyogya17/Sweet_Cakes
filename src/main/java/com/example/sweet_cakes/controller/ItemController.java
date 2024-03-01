@@ -4,6 +4,7 @@ import com.example.sweet_cakes.dto.ItemDto;
 import com.example.sweet_cakes.entity.Item;
 import com.example.sweet_cakes.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,8 @@ public class ItemController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> createData(
+    public ResponseEntity<String> saveOrUpdateData(
+            @PathVariable(value = "id", required = false) Integer id,
             @RequestPart("itemName") String itemName,
             @RequestPart("description") String description,
             @RequestPart("price") String price,
@@ -31,16 +33,14 @@ public class ItemController {
             @RequestPart("imageUrl") String imageUrl) {
 
         try {
-            ItemDto itemDto = new ItemDto(null, itemName, imageUrl, price, quantity, description);
+            ItemDto itemDto = new ItemDto(id, itemName, imageUrl, price, quantity, description);
             itemService.save(itemDto);
-            return ResponseEntity.ok("created data");
+            return ResponseEntity.ok("saved/updated data");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body("Error creating data");
+            return ResponseEntity.status(500).body("Error saving/updating data");
         }
     }
-
-
 
     @GetMapping("/getAll")
     public List<Item> getAllData() {
@@ -56,4 +56,23 @@ public class ItemController {
     public void deleteById(@PathVariable("id") Integer id) {
         itemService.deleteById(id);
     }
+
+    @GetMapping("/getByName/{itemName}")
+    public ResponseEntity<Item> getByName(@PathVariable("itemName") String productName) {
+        Optional<Item> item = itemService.getByName(productName);
+        return item.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateData(@RequestBody ItemDto updatedItemDTO) {
+        try {
+            itemService.update(updatedItemDTO);
+            return ResponseEntity.ok("Product successfully updated");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating/updating data");
+        }
+    }
+
+
 }

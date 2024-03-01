@@ -15,7 +15,11 @@ function Account() {
                 </button>
 
                 <button className="Accbuttons">
-                    <a href="#" className="connect">My Products</a>
+                    <a href="/edit-products" className="connect">Edit Products</a>
+                </button>
+
+                <button className="Accbuttons">
+                    <a href="/my-products" className="connect">My Products</a>
                 </button>
 
                 <button className="Accbuttons">

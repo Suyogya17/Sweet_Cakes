@@ -31,7 +31,11 @@ public class OrderServiceimpl implements OrderService {
             order = orderRepository.findById(orderDTO.getId()).orElseThrow(() -> new NullPointerException("Order not found"));
         }
 
-        order.setOrderDetail(orderDTO.getOrderDetail());
+        order.setOrderName(orderDTO.getOrderName());
+        order.setPrice(orderDTO.getPrice());
+        order.setImageUrl(orderDTO.getImageUrl());
+        order.setQuantity(orderDTO.getQuantity());
+        order.setDescription(orderDTO.getDescription());
 
         orderRepository.save(order);
 

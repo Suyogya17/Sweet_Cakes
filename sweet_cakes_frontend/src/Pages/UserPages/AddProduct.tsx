@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './AddProduct.css';
+import Navbar from "../../Components/Navbar.tsx";
 
 function AddProduct() {
     const [{description, imageUrl, itemName, price, quantity}, setItem] = useState({
@@ -54,6 +55,7 @@ function AddProduct() {
 
     return (
         <>
+            <Navbar/>
             <div className='addproduct'>
                 <h2 className="addheader">Add Product</h2>
                 <label className="addlabel">Name:</label>
@@ -104,6 +106,7 @@ function AddProduct() {
                     Add Product
                 </button>
             </div>
+
         </>
     );
 }

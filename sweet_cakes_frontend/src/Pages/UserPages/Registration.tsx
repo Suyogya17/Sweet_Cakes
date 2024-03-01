@@ -48,7 +48,7 @@ function Registration() {
     return (
         <>
             <div className='maindiv'>
-                <h1 className='header1registration'>Welcome To Seven Steps</h1>
+                <h1 className='header1registration'>Welcome To Sweet Cakes</h1>
                 <h2 className='headerregistration'> --- Your Details --- </h2>
                 <form className='registrationform' onSubmit={handleSubmit}>
                     <input

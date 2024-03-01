@@ -1,3 +1,8 @@
+.anchername{
+    text-decoration: none;
+    color: white;
+}
+
 .navbar {
     background-color: skyblue;
     padding: 15px;
